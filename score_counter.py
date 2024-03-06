@@ -39,8 +39,24 @@ def generate_game():
 
 
 def get_score(game_stamps, offset):
-  ...
+    home = 0
+    away = 0
+    for record in game_stamps:
+        if (record["offset"] == offset
+                or record["offset"] == offset + 1
+                or record["offset"] == offset + 2):
+            home = record['score']['home']
+            away = record['score']['away']
+    return home, away
+
 
 if __name__ == '__main__':
-  game_stamps = generate_game()
-  pprint(game_stamps)
+    game_stamps = generate_game()
+    # f = open("score.txt", "w")
+    # for line in game_stamps:
+    #     f.write(str(line)+'\n')
+    # f.close()
+    offset = math.floor(random.random() * TIMESTAMPS_COUNT * (OFFSET_MAX_STEP - 1))
+    home, away = get_score(game_stamps, offset)
+    pprint(game_stamps)
+    print(offset, home, away)
