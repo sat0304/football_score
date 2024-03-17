@@ -15,6 +15,7 @@ INITIAL_STAMP = {
     }
 }
 
+
 def generate_stamp(previous_value):
     score_changed = random.random() > 1 - PROBABILITY_SCORE_CHANGED
     home_score_change = 1 if score_changed and random.random() > 1 - \
@@ -28,7 +29,8 @@ def generate_stamp(previous_value):
             "away": previous_value["score"]["away"] + away_score_change
         }
     }
-  
+
+
 def generate_game():
     stamps = [INITIAL_STAMP, ]
     current_stamp = INITIAL_STAMP
@@ -50,13 +52,13 @@ def get_score(game_stamps, offset):
     return home, away
 
 
+def calculate_offset():
+    return math.floor(random.random() * TIMESTAMPS_COUNT * 2.02)
+
+
 if __name__ == '__main__':
     game_stamps = generate_game()
-    # f = open("score.txt", "w")
-    # for line in game_stamps:
-    #     f.write(str(line)+'\n')
-    # f.close()
-    offset = math.floor(random.random() * TIMESTAMPS_COUNT * (OFFSET_MAX_STEP - 1))
+    offset = calculate_offset()
     home, away = get_score(game_stamps, offset)
     pprint(game_stamps)
     print(offset, home, away)
